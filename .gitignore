@@ -1,0 +1,23 @@
+################################
+# Directories
+target/
+out/
+
+################################
+# OSX
+.DS_Store
+._*
+
+################################
+# IDEA
+*.iml
+.idea/
+
+jboss-web.xml
+
+publish.properties
+#deploy-local.bash
+#/src/main/webapp/WEB-INF/jboss-web.xml
+TestMe.java
+src/main/webapp/WEB-INF/app_data/
+/src/main/java/com/worstentrepreneur/makimaki/api/TestMe.java

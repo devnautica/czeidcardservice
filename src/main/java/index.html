@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+
+	<script type="text/javascript">
+		var ws = null;
+		function WebSocketTest() {
+			var counter = 0;
+			if ("WebSocket" in window) {
+				console.log("WebSocket is supported by your Browser!");
+
+				// Let us open a web socket
+				ws = new WebSocket("ws://localhost:6969/websocket/msg");
+
+				ws.onopen = function () {
+
+					// Web Socket is connected, send data using send()
+					//ws.send("Message to send");
+					//alert("Message is sent...");
+					var msgX = {
+						cmd : 'handshake',
+						msg : null
+					}
+					ws.send(JSON.stringify(msgX));
+					var timer = setInterval( function(){
+						var msg = {
+							cmd : 'ping',
+							msg : null
+						}
+						ws.send(JSON.stringify(msg));
+					}, 1000);
+				};
+
+				ws.onmessage = function (evt) {
+					var received_msg = evt.data;
+					console.log(received_msg);
+					counter++;
+					var msg = null;
+					if (counter == 0) {
+						msg = {
+							cmd: "handshake",
+							msg:null
+						};
+					}else if (counter == 1) {
+						msg = {
+							cmd: "getData",
+
+							msg:
+									["cardID", "dokState", "DokTryLimit", "DokMaxTryLimit", "iokState"
+										, "IokMaxTryLimit", "IokTryLimit", "serialNumber", "documentNumber", "CN", "surName", "givenName",
+										"street", "locality", "state", "country", "testWhichIsNotImplemented"]
+						};
+
+					}else if(counter == 2){
+						msg = {
+							cmd: "viewAvailableData",
+							msg: null
+						};
+					}else if(counter == 3){
+						msg = {
+							cmd: 'cardPresentStatus',
+							msg: null
+						}
+					}else if(counter == 4){
+						msg = {
+							cmd: 'readerPresentStatus',
+							msg: null
+						}
+					}else if(counter == 5){
+						msg = {
+							cmd: 'viewErrors',
+							msg: null
+						}
+					}
+
+					if(msg != null){
+
+						msg = JSON.stringify(msg);
+						console.log(msg);
+						ws.send(msg);
+					}
+				};
+
+				ws.onclose = function () {
+
+					// websocket is closed.
+					console.log("Connection is closed...");
+				};
+			} else {
+
+				// The browser doesn't support WebSocket
+				console.log("WebSocket NOT supported by your Browser!");
+			}
+		}
+
+		WebSocketTest();
+	</script>
+
+</head>
+
+<body>
+<div id="sse">
+	<!--<a href = "javascript:WebSocketTest()">Run WebSocket</a>-->
+</div>
+
+</body>
+</html>
