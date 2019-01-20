@@ -106,7 +106,7 @@ public class WebsocketEndpoint extends WebSocketAdapter {
 									)
 							);
 							//handshake.setPublicKey("123-2-23");
-							handshake.setShortCertBase64(FileEncoder.fileToString("/home/wenza/projects/devnautica/czeidcardverifier/short.crt"));
+							handshake.setShortCertBase64(FileEncoder.certDataToBase64String(InMemoryData.getInstance().getShortCert().getData()));
 
 							resObj = handshake;
 						}else{

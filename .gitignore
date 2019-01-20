@@ -13,6 +13,8 @@ out/
 *.iml
 .idea/
 
+long.crt
+short.crt
 jboss-web.xml
 
 publish.properties
