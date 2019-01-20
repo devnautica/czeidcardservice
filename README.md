@@ -1,4 +1,4 @@
-#Czech ID card service
+# Czech ID card service
 Service running on desktop, listening on ws://localhost:6969/ for websocket commands from application frontend that 
 wants to communicate with ID card reader.
 
